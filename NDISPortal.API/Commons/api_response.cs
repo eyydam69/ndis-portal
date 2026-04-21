@@ -1,6 +1,6 @@
 ﻿namespace Service.API.Commons
 {
-    public class ApiResponse<T>
+    public class api_response<T>
     {
         
             public bool Success { get; set; }
@@ -9,9 +9,9 @@
             public List<string> Errors { get; set; } = new();
 
             // Success response 
-            public static ApiResponse<T> SuccessResponse(T data, string message = "")
+            public static api_response<T> SuccessResponse(T data, string message = "")
             {
-                return new ApiResponse<T>
+                return new api_response<T>
                 {
                     Success = true,
                     Data = data,
@@ -21,9 +21,9 @@
             }
 
             //  Failure response 
-            public static ApiResponse<T> FailResponse(string message, List<string>? errors = null)
+            public static api_response<T> FailResponse(string message, List<string>? errors = null)
             {
-                return new ApiResponse<T>
+                return new api_response<T>
                 {
                     Success = false,
                     Data = default,

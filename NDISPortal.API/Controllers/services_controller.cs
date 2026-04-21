@@ -7,18 +7,18 @@ namespace Service.API.Controllers
 {
     [Route("api/services")]
     [ApiController]
-    public class ServicesController : ControllerBase
+    public class services_controller : ControllerBase
     {
-        private readonly IServiceService _service;
+        private readonly iservice_service _service;
 
-        public ServicesController(IServiceService service)
+        public services_controller(iservice_service service)
         {
             _service = service;
         }
 
         // GET: api/services
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ServicesDTO>>> GetServices([FromQuery] int? categoryId)
+        public async Task<ActionResult<IEnumerable<services_dto>>> GetServices([FromQuery] int? categoryId)
         {
             var services = await _service.GetAllAsync(categoryId);
             return Ok(services);
@@ -26,7 +26,7 @@ namespace Service.API.Controllers
 
         // GET: api/services/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServicesDTO>> GetServiceItem(int id)
+        public async Task<ActionResult<services_dto>> GetServiceItem(int id)
         {
             var service = await _service.GetByIdAsync(id);
 
@@ -39,7 +39,7 @@ namespace Service.API.Controllers
         // PUT: api/services/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Coordinator")]
-        public async Task<IActionResult> PutServiceItem(int id, ServicesDTO dto)
+        public async Task<IActionResult> PutServiceItem(int id, services_dto dto)
         {
             if (id != dto.Id)
                 return BadRequest();
@@ -55,7 +55,7 @@ namespace Service.API.Controllers
         // POST: api/services
         [HttpPost]
         [Authorize(Roles = "Coordinator")]
-        public async Task<ActionResult<ServicesDTO>> PostServiceItem(ServicesDTO dto)
+        public async Task<ActionResult<services_dto>> PostServiceItem(services_dto dto)
         {
             var created = await _service.CreateAsync(dto);
 

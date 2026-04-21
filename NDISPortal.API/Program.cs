@@ -8,8 +8,8 @@ using NDISPortal.API.Data;
 using NDISPortal.API.Services.Implementations;
 using NDISPortal.API.Services.Interfaces;
 using NDISPortalErrorHandling.Middleware;
-// Standardize your namespaces below based on where your logic moved
-using Service.API.Configurations; 
+using Register.API.Services;
+using Service.API.Configurations;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,9 +21,9 @@ builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSet
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 
 // ==================================================
-// 2. DATABASE (Using the unified ApplicationDbContext)
+// 2. DATABASE
 // ==================================================
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<application_db_context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // ==================================================
@@ -52,24 +52,27 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 // ==================================================
-// 4. DEPENDENCY INJECTION (Combined Services)
+// 4. DEPENDENCY INJECTION
 // ==================================================
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
+// Auth Service
+builder.Services.AddScoped<iauth_service, auth_service>();
+
 // Booking Services
-builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<ibooking_service, booking_service>();
 
 // Service/Category Services
-builder.Services.AddScoped<IServiceCategoryService, ServiceCategoryService>();
-builder.Services.AddScoped<IServiceService, ServiceService>();
+builder.Services.AddScoped<iservice_category_service, serivice_category_service>();
+builder.Services.AddScoped<iservice_service, service_service>();
 
 // CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:4200") 
+        policy.WithOrigins("http://localhost:4200")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -93,7 +96,11 @@ builder.Services.AddSwaggerGen(options =>
         {
             new OpenApiSecurityScheme
             {
-                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
             },
             Array.Empty<string>()
         }
@@ -101,15 +108,15 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 // ==================================================
-// 5. MIDDLEWARE PIPELINE (Order is Critical!)
+// 5. MIDDLEWARE PIPELINE
 // ==================================================
 var app = builder.Build();
 
-// Auto-run Migrations/Creation (Development only usually)
+// Auto-create database
 using (var scope = app.Services.CreateScope())
 {
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    await context.Database.EnsureCreatedAsync(); 
+    var context = scope.ServiceProvider.GetRequiredService<application_db_context>();
+    await context.Database.EnsureCreatedAsync();
 }
 
 if (app.Environment.IsDevelopment())
@@ -121,12 +128,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 
-// IMPORTANT: Authentication MUST come before Authorization
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Custom Middleware
-app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<error_handling_middleware>();
 
 app.MapControllers();
 

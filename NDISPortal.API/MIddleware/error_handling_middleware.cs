@@ -4,11 +4,11 @@ using Service.API.Commons;
 namespace NDISPortalErrorHandling.Middleware
 {
 
-    public class ErrorHandlingMiddleware
+    public class error_handling_middleware
     {
         private readonly RequestDelegate _next;
 
-        public ErrorHandlingMiddleware(RequestDelegate next)
+        public error_handling_middleware(RequestDelegate next)
         {
             _next = next;
         }
@@ -73,7 +73,7 @@ namespace NDISPortalErrorHandling.Middleware
                         });
                 }
 
-                var apiResponse = new ApiResponse<object>
+                var apiResponse = new api_response<object>
                 {
                     Success = statusCode >= 200 && statusCode < 300,
                     Data = data,
@@ -104,7 +104,7 @@ namespace NDISPortalErrorHandling.Middleware
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
 
-                var errorResponse = ApiResponse<object>.FailResponse(
+                var errorResponse = api_response<object>.FailResponse(
                     "An unexpected error occurred",
                     new List<string> { ex.Message }
                 );

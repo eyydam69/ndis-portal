@@ -6,16 +6,16 @@ using NDISPortal.API.Data;
 
 namespace NDISPortal.API.Services.Implementations
 {
-    public class ServiceService : IServiceService
+    public class service_service : iservice_service
     {
-        private readonly ApplicationDbContext _context;
+        private readonly application_db_context _context;
 
-        public ServiceService(ApplicationDbContext context)
+        public service_service(application_db_context context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<ServicesDTO>> GetAllAsync(int? categoryId)
+        public async Task<IEnumerable<services_dto>> GetAllAsync(int? categoryId)
         {
             var query = _context.Services
                 .Include(s => s.ServiceCategory)
@@ -27,38 +27,38 @@ namespace NDISPortal.API.Services.Implementations
             }
 
             return await query
-                .Select(s => new ServicesDTO
+                .Select(s => new services_dto
                 {
                     Id = s.Id,
                     Name = s.Name,
                     Description = s.Description,
                     CategoryId = s.CategoryId,
-                    CategoryName = s.ServiceCategory != null ? s.ServiceCategory.name : null,
+                    CategoryName = s.ServiceCategory != null ? s.ServiceCategory.Name : null,
                     is_active = s.is_active
                 })
                 .ToListAsync();
         }
 
-        public async Task<ServicesDTO?> GetByIdAsync(int id)
+        public async Task<services_dto?> GetByIdAsync(int id)
         {
             return await _context.Services
                 .Include(s => s.ServiceCategory)
                 .Where(s => s.Id == id && s.is_active)
-                .Select(s => new ServicesDTO
+                .Select(s => new services_dto
                 {
                     Id = s.Id,
                     Name = s.Name,
                     Description = s.Description,
                     CategoryId = s.CategoryId,
-                    CategoryName = s.ServiceCategory != null ? s.ServiceCategory.name : null,
+                    CategoryName = s.ServiceCategory != null ? s.ServiceCategory.Name : null,
                     is_active = s.is_active
                 })
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<ServicesDTO> CreateAsync(ServicesDTO dto)
+        public async Task<services_dto> CreateAsync(services_dto dto)
         {
-            var categoryExists = await _context.ServiceCategories
+            var categoryExists = await _context.service_categories
                 .AnyAsync(c => c.Id == dto.CategoryId);
 
             if (!categoryExists)
@@ -83,7 +83,7 @@ namespace NDISPortal.API.Services.Implementations
             return dto;
         }
 
-        public async Task<ServicesDTO?> UpdateAsync(int id, ServicesDTO dto)
+        public async Task<services_dto?> UpdateAsync(int id, services_dto dto)
         {
             var service = await _context.Services
                 .FirstOrDefaultAsync(s => s.Id == id && s.is_active);
@@ -91,7 +91,7 @@ namespace NDISPortal.API.Services.Implementations
             if (service == null)
                 return null;
 
-            var categoryExists = await _context.ServiceCategories
+            var categoryExists = await _context.service_categories
                 .AnyAsync(c => c.Id == dto.CategoryId);
 
             if (!categoryExists)

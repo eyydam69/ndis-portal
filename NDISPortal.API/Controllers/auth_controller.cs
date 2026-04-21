@@ -4,32 +4,28 @@ using Register.API.Services;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController : ControllerBase
+public class auth_controller : ControllerBase
 {
-    private readonly IAuthService _authService;
+    private readonly iauth_service _authService;
 
-    public AuthController(IAuthService authService)
+    public auth_controller(iauth_service authService)
     {
         _authService = authService;
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(RegisterDto dto)
+    public async Task<IActionResult> Register(register_dto dto)
     {
         var result = await _authService.Register(dto);
-
         dynamic res = result;
-
         return StatusCode(res.status, res);
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login(LoginDto dto)
+    public async Task<IActionResult> Login(login_dto dto)
     {
         var result = await _authService.Login(dto);
-
         dynamic res = result;
-
         return StatusCode(res.status, res);
     }
 }

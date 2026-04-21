@@ -1,6 +1,6 @@
 ﻿namespace NdisPortal.BookingsApi.DTOs;
 
-public class BookingListDto
+public class booking_list_dto
 {
     public int Id { get; set; }
     public string ServiceName { get; set; } = string.Empty;

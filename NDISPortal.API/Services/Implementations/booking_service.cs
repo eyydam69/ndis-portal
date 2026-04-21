@@ -6,11 +6,11 @@ using NdisPortal.BookingsApi.Services.Interfaces;
 
 namespace NdisPortal.BookingsApi.Services.Implementations;
 
-public class BookingService : IBookingService
+public class booking_service : ibooking_service
 {
-    private readonly ApplicationDbContext _context;
+    private readonly application_db_context _context;
 
-    public BookingService(ApplicationDbContext context)
+    public booking_service(application_db_context context)
     {
         _context = context;
     }
@@ -23,22 +23,32 @@ public class BookingService : IBookingService
         _ => "Unknown"
     };
 
-    private static int? StringToStatus(string status) => status?.ToLower() switch
+    private static int? ParseStatus(string? status)
     {
-        "pending" => 0,
-        "approved" => 1,
-        "cancelled" => 2,
-        _ => null
-    };
+        if (string.IsNullOrWhiteSpace(status))
+            return null;
 
-    public async Task<IEnumerable<BookingListDto>> GetBookingsAsync(string? status)
+        status = status.Trim().ToLower();
+
+        return status switch
+        {
+            "0" or "pending" => 0,
+            "1" or "approved" => 1,
+            "2" or "cancelled" => 2,
+            _ => null
+        };
+    }
+
+    public async Task<IEnumerable<booking_list_dto>> GetBookingsAsync(string? status)
     {
         int? statusFilter = null;
-        if (!string.IsNullOrEmpty(status))
+
+        if (!string.IsNullOrWhiteSpace(status))
         {
-            statusFilter = StringToStatus(status);
+            statusFilter = ParseStatus(status);
+
             if (statusFilter == null)
-                throw new ArgumentException($"Invalid status value '{status}'. Allowed: Pending, Approved, Cancelled.");
+                throw new ArgumentException($"Invalid status value '{status}'. Allowed: 0/Pending, 1/Approved, 2/Cancelled.");
         }
 
         IQueryable<Booking> query = _context.Bookings
@@ -51,7 +61,7 @@ public class BookingService : IBookingService
 
         var bookings = await query
             .OrderByDescending(b => b.BookingDate)
-            .Select(b => new BookingListDto
+            .Select(b => new booking_list_dto
             {
                 Id = b.Id,
                 ServiceName = b.Service != null ? b.Service.Name : "Unknown",
@@ -65,7 +75,7 @@ public class BookingService : IBookingService
         return bookings;
     }
 
-    public async Task<BookingResponseDto?> GetBookingByIdAsync(int id)
+    public async Task<booking_response_dto?> GetBookingByIdAsync(int id)
     {
         var booking = await _context.Bookings
             .Include(b => b.Service)
@@ -75,7 +85,7 @@ public class BookingService : IBookingService
         if (booking == null)
             return null;
 
-        return new BookingResponseDto
+        return new booking_response_dto
         {
             Id = booking.Id,
             UserId = booking.UserId,
@@ -90,13 +100,14 @@ public class BookingService : IBookingService
         };
     }
 
-    public async Task<BookingResponseDto> CreateBookingAsync(BookingCreateDto createDto)
+    public async Task<booking_response_dto> CreateBookingAsync(booking_create_dto createDto)
     {
         if (createDto.PreferredDate.Date < DateTime.Today)
             throw new ArgumentException("PreferredDate must be today or a future date.");
 
         var service = await _context.Services
             .FirstOrDefaultAsync(s => s.Id == createDto.ServiceId && s.is_active);
+
         if (service == null)
             throw new ArgumentException("Service not found or is not active.");
 
@@ -118,7 +129,7 @@ public class BookingService : IBookingService
         _context.Bookings.Add(booking);
         await _context.SaveChangesAsync();
 
-        return new BookingResponseDto
+        return new booking_response_dto
         {
             Id = booking.Id,
             UserId = booking.UserId,
@@ -133,7 +144,7 @@ public class BookingService : IBookingService
         };
     }
 
-    public async Task<BookingResponseDto?> UpdateBookingStatusAsync(int id, BookingStatusUpdateDto updateDto)
+    public async Task<booking_response_dto?> UpdateBookingStatusAsync(int id, booking_status_update_dto updateDto)
     {
         var booking = await _context.Bookings
             .Include(b => b.Service)
@@ -143,21 +154,17 @@ public class BookingService : IBookingService
         if (booking == null)
             return null;
 
-        int newStatus = updateDto.Status.ToLower() switch
-        {
-            "approved" => 1,
-            "cancelled" => 2,
-            _ => -1
-        };
+        int? newStatus = ParseStatus(updateDto.Status);
 
-        if (newStatus == -1)
-            throw new ArgumentException("Invalid status value. Allowed: Approved, Cancelled.");
+        if (newStatus == null || (newStatus != 1 && newStatus != 2))
+            throw new ArgumentException("Invalid status value. Allowed: 1/Approved, 2/Cancelled.");
 
-        booking.Status = newStatus;
+        booking.Status = newStatus.Value;
         booking.ModifiedDate = DateTime.UtcNow;
+
         await _context.SaveChangesAsync();
 
-        return new BookingResponseDto
+        return new booking_response_dto
         {
             Id = booking.Id,
             UserId = booking.UserId,
@@ -175,6 +182,7 @@ public class BookingService : IBookingService
     public async Task<bool> DeleteBookingAsync(int id)
     {
         var booking = await _context.Bookings.FindAsync(id);
+
         if (booking == null)
             return false;
 

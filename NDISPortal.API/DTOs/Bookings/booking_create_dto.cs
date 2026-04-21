@@ -2,7 +2,7 @@
 
 namespace NdisPortal.BookingsApi.DTOs;
 
-public class BookingCreateDto
+public class booking_create_dto
 {
     [Required]
     public int UserId { get; set; }

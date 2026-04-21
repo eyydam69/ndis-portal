@@ -6,26 +6,38 @@ using NDIS.API.Model;
 
 namespace NDISPortal.API.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class application_db_context : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public application_db_context(DbContextOptions<application_db_context> options) : base(options) { }
 
         public DbSet<User> Users => Set<User>();
-        public DbSet<ServiceCategory> ServiceCategories => Set<ServiceCategory>();
-        public DbSet<Service.API.Model.ServiceItem> Services => Set<ServiceItem>();
+        public DbSet<service_category> service_categories => Set<service_category>();
+        public DbSet<ServiceItem> Services => Set<ServiceItem>();
         public DbSet<Booking> Bookings => Set<Booking>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            // --- Service Category Mapping ---
+            modelBuilder.Entity<service_category>(entity =>
+            {
+                entity.ToTable("service_categories");
+                entity.HasKey(c => c.Id);
+
+                entity.Property(c => c.Id).HasColumnName("id");
+                entity.Property(c => c.Name).HasColumnName("name");
+                entity.Property(c => c.Description).HasColumnName("description");
+            });
+
             // --- ServiceItem Relationships ---
             modelBuilder.Entity<ServiceItem>(entity =>
             {
-                entity.ToTable("services"); // Explicit table name
+                entity.ToTable("services");
+
                 entity.HasOne(s => s.ServiceCategory)
                     .WithMany(c => c.Services)
-                    .HasForeignKey(s => s.CategoryId) // Corrected to PascalCase
+                    .HasForeignKey(s => s.CategoryId)
                     .HasConstraintName("FK_Services_ServiceCategories")
                     .OnDelete(DeleteBehavior.Restrict);
             });
@@ -47,7 +59,12 @@ namespace NDISPortal.API.Data
                     .HasConstraintName("FK_Bookings_Services")
                     .OnDelete(DeleteBehavior.Restrict);
 
-                // SQL Server specific syntax: use [status] to avoid keyword conflicts
+                entity.Property(b => b.Status)
+                    .HasConversion(
+                        v => (byte)v,
+                        v => (int)v
+                    );
+
                 entity.ToTable(t => t.HasCheckConstraint("CHK_Booking_Status", "[status] IN (0,1,2)"));
             });
         }

@@ -15,7 +15,6 @@ public class Booking
     [Column("user_id")]
     public int UserId { get; set; }
 
-    // Navigation Property - ADD THIS
     public User User { get; set; }
 
     [Column("service_id")]
@@ -37,5 +36,4 @@ public class Booking
 
     [Column("modified_date")]
     public DateTime ModifiedDate { get; set; }
-
 }

@@ -1,6 +1,6 @@
 ﻿namespace NdisPortal.BookingsApi.DTOs;
 
-public class BookingResponseDto
+public class booking_response_dto
 {
     public int Id { get; set; }
     public int UserId { get; set; }
