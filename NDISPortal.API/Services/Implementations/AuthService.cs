@@ -31,10 +31,10 @@ namespace Register.API.Services
                 return new { status = 400, message = "All fields are required" };
             }
 
-            var emailRegex = new Regex(@"^[^\s@]+@[^\s@]+\.[^\s@]+$");
+            var emailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@gmail\.com$");
             if (!emailRegex.IsMatch(dto.Email))
             {
-                return new { status = 400, message = "Invalid email format" };
+                return new { status = 400, message = "Email must be in @gmail.com format" };
             }
 
             if (dto.Password.Length < 8)
