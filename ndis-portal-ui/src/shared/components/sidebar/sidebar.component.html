@@ -1,16 +1,26 @@
 <aside class="sidebar">
   <div class="brand">
-    <div class="logo-icon">NDIS</div>
+    <div class="logo-box">
+      <span>NDIS</span>
+    </div>
     <div class="brand-text">
-      <strong>NDIS</strong>
-      <span>Enterprise</span>
+      <span class="company-name">NDIS</span>
+      <span class="sub-text">Enterprise</span>
     </div>
   </div>
 
   <nav class="nav-menu">
-    <a *ngFor="let item of navItems" [routerLink]="item.path" routerLinkActive="active" class="nav-item">
-      <span class="icon">{{ item.icon }}</span>
-      {{ item.label }}
+    <a *ngFor="let item of navItems" [routerLink]="item.path" routerLinkActive="active" class="nav-link">
+
+      <div class="icon-wrapper">
+        <ng-container [ngSwitch]="item.icon">
+          <app-icon-home *ngSwitchCase="'home'" [size]="20"></app-icon-home>
+          <app-icon-chat *ngSwitchCase="'services'" [size]="20"></app-icon-chat>
+          <app-icon-chat *ngSwitchCase="'bookings'" [size]="20"></app-icon-chat>
+        </ng-container>
+      </div>
+
+      <span class="label">{{ item.label }}</span>
     </a>
   </nav>
 </aside>

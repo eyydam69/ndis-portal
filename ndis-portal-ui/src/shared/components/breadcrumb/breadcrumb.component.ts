@@ -3,10 +3,17 @@ import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
+
+import { HomeIconComponent } from '../icons/svg-icons/home-icon';
+
 @Component({
   selector: 'app-breadcrumb',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [
+      CommonModule, 
+      RouterModule, 
+      HomeIconComponent, 
+    ],
   templateUrl: './breadcrumb.component.html',
   styleUrl: './breadcrumb.component.css',
 })

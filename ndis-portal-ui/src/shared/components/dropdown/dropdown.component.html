@@ -1,0 +1,20 @@
+<div class="dropdown-container">
+  <button type="button" class="dropdown-trigger" (click)="toggle()" [class.active]="isOpen">
+    <span class="trigger-content">
+      <ng-content select="[trigger-icon]"></ng-content>
+      <p>{{ selectedValue }}</p>
+    </span>
+    <span class="chevron" [class.rotated]="isOpen">▼</span>
+  </button>
+
+  <div class="dropdown-menu" *ngIf="isOpen">
+    <ng-container *ngFor="let option of options">
+      <div *ngIf="option.isDivider" class="divider"></div>
+
+      <button *ngIf="!option.isDivider" type="button" class="dropdown-item"
+        [class.selected]="option.value === selectedValue" (click)="selectOption(option)">
+        {{ option.label }}
+      </button>
+    </ng-container>
+  </div>
+</div>

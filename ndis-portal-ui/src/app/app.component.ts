@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../shared/components/sidebar/sidebar.component';
-import { BreadcrumbComponent } from '../shared/components/breadcrumb/breadcrumb.component';
+import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent, BreadcrumbComponent],
+  imports: [RouterOutlet, SidebarComponent, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
