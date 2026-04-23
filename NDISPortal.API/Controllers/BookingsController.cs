@@ -66,5 +66,32 @@ namespace NdisPortal.BookingsApi.Controllers
 
             return Ok(updated);
         }
+
+        // DELETE /api/bookings/{id}
+        // Participant only
+        // Participant can only delete their own bookings
+        // Can only delete bookings with status Pending
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Participant")]
+        public async Task<IActionResult> DeleteBooking(int id)
+        {
+            var userIdClaim = User.FindFirst("userId")?.Value;
+
+            if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
+                return Unauthorized("Invalid token: userId claim is missing.");
+
+            var result = await _bookingService.DeleteBookingAsync(id, userId);
+
+            if (result == null)
+                return NotFound($"Booking with ID {id} not found.");
+
+            if (result == "FORBIDDEN")
+                return Forbid();
+
+            if (result == "INVALID_STATUS")
+                return BadRequest("Booking is already Approved or Cancelled. Only Pending bookings can be deleted.");
+
+            return NoContent();
+        }
     }
 }

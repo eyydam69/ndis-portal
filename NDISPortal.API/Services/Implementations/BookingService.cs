@@ -73,7 +73,7 @@ namespace NdisPortal.BookingsApi.Services.Implementations
             }
             else if (currentUserRole == "Coordinator")
             {
-                // coordinator sees all
+                // Coordinator sees all bookings
             }
             else
             {
@@ -184,6 +184,25 @@ namespace NdisPortal.BookingsApi.Services.Implementations
                 CreatedDate = booking.CreatedDate,
                 ModifiedDate = booking.ModifiedDate
             };
+        }
+
+        public async Task<string?> DeleteBookingAsync(int id, int currentUserId)
+        {
+            var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id);
+
+            if (booking == null)
+                return null;
+
+            if (booking.UserId != currentUserId)
+                return "FORBIDDEN";
+
+            if (booking.Status != 0)
+                return "INVALID_STATUS";
+
+            _context.Bookings.Remove(booking);
+            await _context.SaveChangesAsync();
+
+            return "DELETED";
         }
     }
 }

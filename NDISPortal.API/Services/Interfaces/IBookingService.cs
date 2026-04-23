@@ -7,5 +7,6 @@ namespace NdisPortal.BookingsApi.Services.Interfaces
         Task<IEnumerable<BookingsListDto>> GetBookingsAsync(int currentUserId, string currentUserRole, string? status);
         Task<BookingResponseDto> CreateBookingAsync(int currentUserId, BookingCreateDto createDto);
         Task<BookingResponseDto?> UpdateBookingStatusAsync(int id, BookingStatusUpdateDto updateDto);
+        Task<string?> DeleteBookingAsync(int id, int currentUserId);
     }
 }
