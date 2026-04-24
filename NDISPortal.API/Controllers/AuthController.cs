@@ -21,7 +21,8 @@ namespace Register.API.Controllers
         public async Task<IActionResult> Register(RegistserDto dto)
         {
             var result = await _service.Register(dto);
-            return Ok(result);
+            dynamic res = result;
+            return StatusCode(res.status, res);
         }
 
         [AllowAnonymous]
@@ -29,7 +30,8 @@ namespace Register.API.Controllers
         public async Task<IActionResult> Login(LoginDto dto)
         {
             var result = await _service.Login(dto);
-            return Ok(result);
+            dynamic res = result;
+            return StatusCode(res.status, res);
         }
     }
 }
