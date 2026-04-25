@@ -29,7 +29,7 @@ public class Booking
     public string? Notes { get; set; }
 
     [Column("status")]
-    public int Status { get; set; }
+    public byte Status { get; set; }
 
     [Column("created_date")]
     public DateTime CreatedDate { get; set; }

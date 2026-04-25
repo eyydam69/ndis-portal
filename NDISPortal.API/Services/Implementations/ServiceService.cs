@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NDISPortal.API.Services.Interfaces;
-using Service.API.DTOs;
 using NDISPortal.API.Data;
-
+using NDISPortal.API.Services.Interfaces;
+using Service.API.DTOs.Service;
+using Service.API.Model;
 
 namespace NDISPortal.API.Services.Implementations
 {
@@ -15,108 +15,167 @@ namespace NDISPortal.API.Services.Implementations
             _context = context;
         }
 
-        public async Task<IEnumerable<ServicesDto>> GetAllAsync(int? categoryId)
+        public async Task<IEnumerable<ServiceDto>> GetAllAsync(int? categoryId)
         {
             var query = _context.Services
                 .Include(s => s.ServiceCategory)
-                .Where(s => s.is_active);
+                .Where(s => s.is_active)
+                .AsQueryable();
 
             if (categoryId.HasValue)
             {
                 query = query.Where(s => s.CategoryId == categoryId.Value);
             }
 
-            return await query
-                .Select(s => new ServicesDto
+            var services = await query
+                .Select(s => new ServiceDto
                 {
                     Id = s.Id,
+                    CategoryId = s.CategoryId,
+                    CategoryName = s.ServiceCategory != null ? s.ServiceCategory.Name : string.Empty,
                     Name = s.Name,
                     Description = s.Description,
-                    CategoryId = s.CategoryId,
-                    CategoryName = s.ServiceCategory != null ? s.ServiceCategory.Name : null,
-                    is_active = s.is_active
+                    IsActive = s.is_active
                 })
                 .ToListAsync();
+
+            return services;
         }
 
-        public async Task<ServicesDto?> GetByIdAsync(int id)
+        public async Task<ServiceDto?> GetByIdAsync(int id)
         {
-            return await _context.Services
+            var service = await _context.Services
                 .Include(s => s.ServiceCategory)
                 .Where(s => s.Id == id && s.is_active)
-                .Select(s => new ServicesDto
+                .Select(s => new ServiceDto
                 {
                     Id = s.Id,
+                    CategoryId = s.CategoryId,
+                    CategoryName = s.ServiceCategory != null ? s.ServiceCategory.Name : string.Empty,
                     Name = s.Name,
                     Description = s.Description,
-                    CategoryId = s.CategoryId,
-                    CategoryName = s.ServiceCategory != null ? s.ServiceCategory.Name : null,
-                    is_active = s.is_active
+                    IsActive = s.is_active
                 })
                 .FirstOrDefaultAsync();
+
+            return service;
         }
 
-        public async Task<ServicesDto> CreateAsync(ServicesDto dto)
+        public async Task<ServiceDto> CreateAsync(CreateServiceDto dto)
         {
+            if (dto.CategoryId <= 0)
+            {
+                throw new ArgumentException("Category ID is required.");
+            }
+
             var categoryExists = await _context.service_categories
                 .AnyAsync(c => c.Id == dto.CategoryId);
 
             if (!categoryExists)
-                throw new Exception("Invalid CategoryId");
-
-            var service = new Service.API.Model.ServiceItem
             {
-                Name = dto.Name,
-                Description = dto.Description,
+                throw new ArgumentException("Category ID must have an existing category ID.");
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.Name))
+            {
+                throw new ArgumentException("Service name is required.");
+            }
+
+            var service = new ServiceItem
+            {
                 CategoryId = dto.CategoryId,
+                Name = dto.Name.Trim(),
+                Description = dto.Description,
                 is_active = true,
-                created_date = DateTime.Now,
-                modified_date = DateTime.Now
+                created_date = DateTime.UtcNow,
+                modified_date = DateTime.UtcNow
             };
 
             _context.Services.Add(service);
             await _context.SaveChangesAsync();
 
-            dto.Id = service.Id;
-            dto.is_active = true;
+            var created = await _context.Services
+                .Include(s => s.ServiceCategory)
+                .Where(s => s.Id == service.Id)
+                .Select(s => new ServiceDto
+                {
+                    Id = s.Id,
+                    CategoryId = s.CategoryId,
+                    CategoryName = s.ServiceCategory != null ? s.ServiceCategory.Name : string.Empty,
+                    Name = s.Name,
+                    Description = s.Description,
+                    IsActive = s.is_active
+                })
+                .FirstAsync();
 
-            return dto;
+            return created;
         }
 
-        public async Task<ServicesDto?> UpdateAsync(int id, ServicesDto dto)
+        public async Task<ServiceDto?> UpdateAsync(int id, UpdateServiceDto dto)
         {
             var service = await _context.Services
-                .FirstOrDefaultAsync(s => s.Id == id && s.is_active);
+                .FirstOrDefaultAsync(s => s.Id == id);
 
             if (service == null)
+            {
                 return null;
+            }
+
+            if (dto.CategoryId <= 0)
+            {
+                throw new ArgumentException("Category ID is required.");
+            }
 
             var categoryExists = await _context.service_categories
                 .AnyAsync(c => c.Id == dto.CategoryId);
 
             if (!categoryExists)
-                return null;
+            {
+                throw new ArgumentException("Category ID must have an existing category ID.");
+            }
 
-            service.Name = dto.Name;
-            service.Description = dto.Description;
+            if (string.IsNullOrWhiteSpace(dto.Name))
+            {
+                throw new ArgumentException("Service name is required.");
+            }
+
             service.CategoryId = dto.CategoryId;
+            service.Name = dto.Name.Trim();
+            service.Description = dto.Description;
             service.is_active = dto.is_active;
-            service.modified_date = DateTime.Now;
+            service.modified_date = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();
 
-            return dto;
+            var updated = await _context.Services
+                .Include(s => s.ServiceCategory)
+                .Where(s => s.Id == service.Id)
+                .Select(s => new ServiceDto
+                {
+                    Id = s.Id,
+                    CategoryId = s.CategoryId,
+                    CategoryName = s.ServiceCategory != null ? s.ServiceCategory.Name : string.Empty,
+                    Name = s.Name,
+                    Description = s.Description,
+                    IsActive = s.is_active
+                })
+                .FirstOrDefaultAsync();
+
+            return updated;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var service = await _context.Services.FindAsync(id);
+            var service = await _context.Services
+                .FirstOrDefaultAsync(s => s.Id == id);
 
             if (service == null)
+            {
                 return false;
+            }
 
             service.is_active = false;
-            service.modified_date = DateTime.Now;
+            service.modified_date = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();
 
