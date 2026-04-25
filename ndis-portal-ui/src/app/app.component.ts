@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 import { ParticipantSidebarComponent } from '../shared/components/sidebar/participant-sidebar.component';
 import { AuthService } from './core/services/auth.service';
+import { NgIf } from '@angular/common';
 
 import { MyBookingsComponent } from './features/bookings/my-bookings.page';
 @Component({
@@ -13,6 +14,7 @@ import { MyBookingsComponent } from './features/bookings/my-bookings.page';
     ParticipantSidebarComponent,
     NavbarComponent,
     MyBookingsComponent,
+    NgIf,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
