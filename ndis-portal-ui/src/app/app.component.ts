@@ -5,7 +5,8 @@ import { ParticipantSidebarComponent } from '../shared/components/sidebar/partic
 import { AuthService } from './core/services/auth.service';
 import { NgIf } from '@angular/common';
 
-import { MyBookingsComponent } from './features/bookings/my-bookings.page';
+import { MyBookingsComponent } from './features/bookings/my-bookings/my-bookings.page';
+
 @Component({
   selector: 'app-root',
   standalone: true,
