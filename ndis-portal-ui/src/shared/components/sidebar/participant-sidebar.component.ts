@@ -7,17 +7,18 @@ import { SidebarComponent, NavItem } from '../../ui/sidebar/sidebar.ui';
   standalone: true,
   imports: [CommonModule, SidebarComponent],
   template: `
-    <app-sidebar [navItems]="participantLinks" subText="Participant Portal">
-    </app-sidebar>
+    <app-sidebar
+      [navItems]="participantLinks"
+      subText="Participant Portal"
+    ></app-sidebar>
   `,
 })
 export class ParticipantSidebarComponent {
-  // Define the specific links for a Participant
-  participantLinks: NavItem[] = [    {
-      label: 'Services',
-      path: '/services',
-      icon: 'services',
-    },
+  /**
+   * Navigation links for participant role
+   */
+  participantLinks: NavItem[] = [
+    { label: 'Services', path: '/services', icon: 'services' },
     { label: 'My Bookings', path: '/bookings', icon: 'bookings' },
   ];
 }
