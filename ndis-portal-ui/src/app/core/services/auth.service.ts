@@ -65,10 +65,8 @@ export class AuthService {
     return this.http.post<RegisterResponse>(`${this.apiUrl}/auth/register`, data)
       .pipe(
         catchError((error: any) => {
-          if (error.error && error.error.message) {
-            return throwError(() => new Error(error.error.message));
-          }
-          return throwError(() => new Error('Registration failed. Please try again.'));
+          // Pass through the complete error object to the components
+          return throwError(() => error);
         })
       );
   }
@@ -77,10 +75,8 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, data)
       .pipe(
         catchError((error: any) => {
-          if (error.error && error.error.message) {
-            return throwError(() => new Error(error.error.message));
-          }
-          return throwError(() => new Error('Invalid email or password.'));
+          // Pass through the complete error object to the components
+          return throwError(() => error);
         })
       );
   }
