@@ -108,8 +108,39 @@ export class MySignupComponent {
       },
       error: (error: any) => {
         this.isLoading = false;
-        this.errorMessage = error.message || 'Registration failed. Please try again.';
+        this.errorMessage = this.getSpecificErrorMessage(error);
       }
     });
+  }
+
+  private getSpecificErrorMessage(error: any): string {
+    // Check if it's an HTTP error response
+    if (error.status) {
+      const status = error.status;
+      const errorBody = error.error;
+
+      // Try to extract message from error body
+      const apiMessage = errorBody?.message || errorBody?.Message || errorBody?.error;
+
+      switch (status) {
+        case 400:
+          return apiMessage || 'Invalid input. Please check all fields and try again.';
+        case 409:
+          return apiMessage || 'Email is already registered. Please use a different email or log in.';
+        case 422:
+          return apiMessage || 'Validation error. Please check your information.';
+        case 500:
+          return apiMessage || 'Server error. Please try again later.';
+        case 503:
+          return 'Service temporarily unavailable. Please try again later.';
+        case 0:
+          return 'Network error. Please check your connection.';
+        default:
+          return apiMessage || 'Registration failed. Please try again.';
+      }
+    }
+
+    // Fallback to error message if available
+    return error.message || 'Registration failed. Please try again.';
   }
 }

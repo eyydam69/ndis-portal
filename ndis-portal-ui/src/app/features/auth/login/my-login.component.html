@@ -16,9 +16,6 @@
     <p class="subtitle">We're here to help you manage your day.</p>
   </div>
 </div>
-      <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
-      </div>
 
       <form (ngSubmit)="onLogin()">
         <div class="input-group">
@@ -53,6 +50,10 @@
       <p class="footer-text">
         Don't have an account yet? <a routerLink="/signup" class="signup-link">Sign up</a>
       </p>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
     </div>
   </div>
 </div>

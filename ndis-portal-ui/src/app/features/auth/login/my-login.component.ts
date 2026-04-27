@@ -49,13 +49,29 @@ export class MyLoginComponent {
   ) {}
 
   onLogin() {
+    // Reset error message
+    this.errorMessage = '';
+
+    // Validate inputs
     if (!this.email || !this.password) {
       this.errorMessage = 'Email and password are required';
       return;
     }
 
+    // Validate email format
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!emailRegex.test(this.email.trim())) {
+      this.errorMessage = 'Please enter a valid Gmail email address';
+      return;
+    }
+
+    // Validate password length
+    if (this.password.length < 8) {
+      this.errorMessage = 'Password must be at least 8 characters';
+      return;
+    }
+
     this.isLoading = true;
-    this.errorMessage = '';
 
     const loginData: LoginRequest = {
       email: this.email,
@@ -101,8 +117,39 @@ export class MyLoginComponent {
       error: (error: any) => {
         this.isLoading = false;
         console.error('Login error:', error);
-        this.errorMessage = error.message || 'Invalid email or password.';
+        this.errorMessage = this.getSpecificErrorMessage(error);
       }
     });
+  }
+
+  private getSpecificErrorMessage(error: any): string {
+    // Check if it's an HTTP error response
+    if (error.status) {
+      const status = error.status;
+      const errorBody = error.error;
+
+      // Try to extract message from error body
+      const apiMessage = errorBody?.message || errorBody?.Message || errorBody?.error;
+
+      switch (status) {
+        case 400:
+          return apiMessage || 'Invalid email or password format.';
+        case 401:
+          return 'Incorrect email or password. Please verify your credentials and try again.';
+        case 404:
+          return apiMessage || 'User account not found.';
+        case 500:
+          return apiMessage || 'Server error. Please try again later.';
+        case 503:
+          return 'Service temporarily unavailable. Please try again later.';
+        case 0:
+          return 'Network error. Please check your connection.';
+        default:
+          return apiMessage || 'Login failed. Please try again.';
+      }
+    }
+
+    // Fallback to error message if available
+    return error.message || 'Invalid email or password.';
   }
 }
