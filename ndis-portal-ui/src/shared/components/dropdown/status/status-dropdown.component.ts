@@ -4,12 +4,11 @@ import {
   DropdownUIComponent,
   DropdownOption,
 } from '../../../ui/dropdown/dropdown.ui';
-import { StatusIconComponent } from '../../icons/svg-icons/status-icon';
-
+import { FilterIconComponent } from '../../icons/svg-icons/filter-icon';
 @Component({
   selector: 'app-status-dropdown',
   standalone: true,
-  imports: [CommonModule, DropdownUIComponent, StatusIconComponent],
+  imports: [CommonModule, DropdownUIComponent, FilterIconComponent],
   template: `
     <app-dropdown-ui
       label="Status"
@@ -17,7 +16,7 @@ import { StatusIconComponent } from '../../icons/svg-icons/status-icon';
       [selectedValue]="activeStatus"
       (onSelect)="handleSelect($event)"
     >
-      <app-icon-status icon [size]="16"></app-icon-status>
+      <app-icon-filter icon [size]="16"></app-icon-filter>
     </app-dropdown-ui>
   `,
 })
