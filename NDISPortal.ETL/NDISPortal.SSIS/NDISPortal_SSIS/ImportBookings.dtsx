@@ -1,0 +1,2593 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/27/2026 7:18:30 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JIM"
+  DTS:CreatorName="JIM\JIM"
+  DTS:DTSID="{060D3163-1A56-47F0-AD24-550632A4E34D}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="18441"
+  DTS:ObjectName="ImportBookings"
+  DTS:PackageType="5"
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{791F2D23-5D17-415F-9DA1-F4A190015260}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[FF_bookings_import]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{0442A66A-48CC-45E1-AB04-90C27FB62D45}"
+      DTS:ObjectName="FF_bookings_import">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="18441"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\SSIS\Input\bookings_import.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="participant_email"
+              DTS:DTSID="{6EE944DA-5F5C-415E-8AB9-B8EAEAFE1141}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="service_name"
+              DTS:DTSID="{D64D9695-5607-4803-B128-E048B9854468}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="preferred_date"
+              DTS:DTSID="{56A4F235-DDF5-41EC-BC7B-27BF3D7DC4BB}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="notes"
+              DTS:DTSID="{36452A83-B793-42C5-9142-7DF0072E4082}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="status"
+              DTS:DTSID="{3C62A8AB-9EDD-427E-ADC5-773B7E42F2BF}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[FF_bookings_import_errors]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{3DDBD8FE-9F61-40CB-A82E-3B759E04E4A5}"
+      DTS:ObjectName="FF_bookings_import_errors">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="18441"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\SSIS\Error\bookings_import_errors.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="participant_email"
+              DTS:DTSID="{81F3E230-74D1-487A-9E80-C51A29C58FF5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="service_name"
+              DTS:DTSID="{CF16A7F0-8DBE-4942-AB08-16E40B4AA6B7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="preferred_date"
+              DTS:DTSID="{3F876A69-D010-4C82-BBD0-3952E632D171}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="notes"
+              DTS:DTSID="{75B63E4A-EBFF-458D-8E75-BF61ADB9E83F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="status"
+              DTS:DTSID="{C4EAC291-23FE-490D-A6AE-BA78E4A77690}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="error_reason"
+              DTS:DTSID="{DF1BDFC6-2C6A-4EA3-AE07-5BE56AD27C12}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[JIM.ndis_portal_db.Sa]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{2EBD8DA4-0454-46F5-90E4-762F7D0C8954}"
+      DTS:ObjectName="JIM.ndis_portal_db.Sa">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=JIM;User ID=Sa;Initial Catalog=ndis_portal_db;Provider=SQLOLEDB.1;Persist Security Info=True;Application Name=SSIS-ImportBookings-{2EBD8DA4-0454-46F5-90E4-762F7D0C8954}JIM.ndis_portal_db.Sa;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA7IPNawDo4keRfXr64Qn+SAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACbCkeeYfdpo6aaytjI3W9R8jPBwJfjJ9onjxntn4mHEAAAAAAOgAAAAAIAACAAAACnwgvC4hmMuLT2EFFtKnUbhEm4tXKlafwGFHD2fcXIbSAAAACdk2LVBWogR5udTuhExUyvUxRMxlfWRJcVbgZbyyCXN0AAAABs3FlChAoPUSgna/EwqpLqGzTNdEn6wEs2HU2GyzJu2S0N/KsdU5LzjRhNgmN/ddEao4fNIGySQLiF23oUyrf7</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[JIM.ndis_portal_db.Sa 1]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{34DE237F-1253-4153-867E-B7F1A7FA8A51}"
+      DTS:ObjectName="JIM.ndis_portal_db.Sa 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=JIM;User ID=Sa;Initial Catalog=ndis_portal_db;Provider=SQLOLEDB.1;Persist Security Info=True;Application Name=SSIS-ImportBookings-{34DE237F-1253-4153-867E-B7F1A7FA8A51}JIM.ndis_portal_db.Sa 1;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA7IPNawDo4keRfXr64Qn+SAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAD9tfpT5m6XyHHrQQtfeFnQzJS+zUOoHVJYOpIKoyolIAAAAAAOgAAAAAIAACAAAAAlH7qK4RrfyiBw9lGjTvkBVB1uoJxI0i8CDvsffHS4DiAAAAAbI/hXUB57qYOVy9Ub+Gv8FED8fVvZOKTOT2kQV07YKUAAAAD+dUq1ilkuelFsTgYa1nSw7oRFM9baS1sdkUmCM7D9wpg8WtM+XhUDWTWIojVlLXTmCDiQQx5DTHrFzTNIsJbv</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT_ImportBookings"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{B1C9366B-1C73-4732-B2F8-5CDCAA59E7A1}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT_ImportBookings"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT_ImportBookings\CS_CheckResolvedLookups"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="CS_CheckResolvedLookups"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Inputs[Conditional Split Input].Columns[participant_id]"
+                      cachedDataType="i4"
+                      cachedName="participant_id"
+                      lineageId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup Match Output].Columns[participant_id]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Inputs[Conditional Split Input].Columns[service_id]"
+                      cachedDataType="i4"
+                      cachedName="service_id"
+                      lineageId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup Match Output].Columns[service_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Outputs[ValidRows]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="ValidRows"
+                  synchronousInputId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">![ISNULL](#{Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup Match Output].Columns[participant_id]}) &amp;&amp; ![ISNULL](#{Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup Match Output].Columns[service_id]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">!ISNULL(participant_id) &amp;&amp; !ISNULL(service_id)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="DC_ConvertBookingColumns"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Inputs[Data Conversion Input].Columns[participant_email]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="participant_email"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[participant_email]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Inputs[Data Conversion Input].Columns[service_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="service_name"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[service_name]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Inputs[Data Conversion Input].Columns[notes]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="notes"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[notes]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Inputs[Data Conversion Input].Columns[status]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="status"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[status]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Inputs[Data Conversion Input].Columns[preferred_date]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="preferred_date"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[preferred_date]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[participant_email_wstr]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[participant_email_wstr]"
+                      name="participant_email_wstr"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[participant_email]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[service_name_wstr]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[service_name_wstr]"
+                      name="service_name_wstr"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[service_name]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[notes_wstr]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="500"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[notes_wstr]"
+                      name="notes_wstr"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[notes]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[status_wstr]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[status_wstr]"
+                      name="status_wstr"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[status]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[preferred_date_dt]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[preferred_date_dt]"
+                      name="preferred_date_dt"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[preferred_date]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_ImportBookings\DER_AddCreatedAt"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DER_AddCreatedAt"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_ImportBookings\DER_AddCreatedAt.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_ImportBookings\DER_AddCreatedAt.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT_ImportBookings\DER_AddCreatedAt.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DER_AddCreatedAt.Outputs[Derived Column Output].Columns[created_at]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT_ImportBookings\DER_AddCreatedAt.Outputs[Derived Column Output].Columns[created_at]"
+                      name="created_at"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_ImportBookings\DER_AddCreatedAt.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT_ImportBookings\DER_AddCreatedAt.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DER_AddCreatedAt.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\DER_AddCreatedAt.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DER_AddCreatedAt.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\DER_AddCreatedAt.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_ImportBookings\DER_ConvertStatus"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DER_ConvertStatus"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_ImportBookings\DER_ConvertStatus.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\DER_ConvertStatus.Inputs[Derived Column Input].Columns[status]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="status"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[status]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_ImportBookings\DER_ConvertStatus.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT_ImportBookings\DER_ConvertStatus.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DER_ConvertStatus.Outputs[Derived Column Output].Columns[status_value]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT_ImportBookings\DER_ConvertStatus.Outputs[Derived Column Output].Columns[status_value]"
+                      name="status_value"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[status]} == "Pending" ? 0 : #{Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[status]} == "Approved" ? 1 : #{Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[status]} == "Cancelled" ? 2 : -1</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">status == "Pending" ? 0 : status == "Approved" ? 1 : status == "Cancelled" ? 2 : -1</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_ImportBookings\DER_ConvertStatus.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT_ImportBookings\DER_ConvertStatus.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DER_ConvertStatus.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\DER_ConvertStatus.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DER_ConvertStatus.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\DER_ConvertStatus.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_ImportBookings\DER_ParticipantError"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DER_ParticipantError"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_ImportBookings\DER_ParticipantError.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_ImportBookings\DER_ParticipantError.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT_ImportBookings\DER_ParticipantError.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DER_ParticipantError.Outputs[Derived Column Output].Columns[error_reason]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="27"
+                      lineageId="Package\DFT_ImportBookings\DER_ParticipantError.Outputs[Derived Column Output].Columns[error_reason]"
+                      name="error_reason"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"Participant email not found"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"Participant email not found"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_ImportBookings\DER_ParticipantError.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT_ImportBookings\DER_ParticipantError.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DER_ParticipantError.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\DER_ParticipantError.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DER_ParticipantError.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\DER_ParticipantError.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_ImportBookings\DER_ServiceError"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DER_ServiceError"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_ImportBookings\DER_ServiceError.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_ImportBookings\DER_ServiceError.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT_ImportBookings\DER_ServiceError.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DER_ServiceError.Outputs[Derived Column Output].Columns[error_reason]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="22"
+                      lineageId="Package\DFT_ImportBookings\DER_ServiceError.Outputs[Derived Column Output].Columns[error_reason]"
+                      name="error_reason"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"Service name not found"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"Service name not found"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_ImportBookings\DER_ServiceError.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT_ImportBookings\DER_ServiceError.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DER_ServiceError.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\DER_ServiceError.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\DER_ServiceError.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\DER_ServiceError.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_ImportBookings\FFD_bookings_import_errors"
+              componentClassID="Microsoft.FlatFileDestination"
+              contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Destination"
+              localeId="18441"
+              name="FFD_bookings_import_errors"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the data will overwrite or append to the destination file."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the text to write to the destination file before any data is written."
+                  expressionType="Notify"
+                  name="Header" />
+                <property
+                  dataType="System.Boolean"
+                  description="When text qualifier is enabled, specifies whether the text qualifier in the data written to the destination file will be escaped or not."
+                  name="EscapeQualifier">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[FF_bookings_import_errors]"
+                  connectionManagerRefId="Package.ConnectionManagers[FF_bookings_import_errors]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input]"
+                  hasSideEffects="true"
+                  name="Flat File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].Columns[participant_email]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="participant_email"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].ExternalColumns[participant_email]"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[participant_email]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].Columns[error_reason]"
+                      cachedDataType="wstr"
+                      cachedLength="27"
+                      cachedName="error_reason"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].ExternalColumns[error_reason]"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[error_reason]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].Columns[service_name_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="service_name_wstr"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].ExternalColumns[service_name]"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[service_name_wstr]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].Columns[preferred_date_dt]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="preferred_date_dt"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].ExternalColumns[preferred_date]"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[preferred_date_dt]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].Columns[notes_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="notes_wstr"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].ExternalColumns[notes]"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[notes_wstr]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].Columns[status_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="status_wstr"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].ExternalColumns[status]"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[status_wstr]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].ExternalColumns[participant_email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="participant_email" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].ExternalColumns[service_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="service_name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].ExternalColumns[preferred_date]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="preferred_date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].ExternalColumns[notes]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="notes" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].ExternalColumns[status]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="status" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input].ExternalColumns[error_reason]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="error_reason" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+            <component
+              refId="Package\DFT_ImportBookings\FFS_bookings_import"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="18441"
+              name="FFS_bookings_import"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_ImportBookings\FFS_bookings_import.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[FF_bookings_import]"
+                  connectionManagerRefId="Package.ConnectionManagers[FF_bookings_import]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[participant_email]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].ExternalColumns[participant_email]"
+                      length="50"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[participant_email]"
+                      name="participant_email"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[service_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].ExternalColumns[service_name]"
+                      length="50"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[service_name]"
+                      name="service_name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[preferred_date]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].ExternalColumns[preferred_date]"
+                      length="50"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[preferred_date]"
+                      name="preferred_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[notes]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].ExternalColumns[notes]"
+                      length="50"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[notes]"
+                      name="notes"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[status]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].ExternalColumns[status]"
+                      length="50"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[status]"
+                      name="status"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].ExternalColumns[participant_email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="participant_email" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].ExternalColumns[service_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="service_name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].ExternalColumns[preferred_date]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="preferred_date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].ExternalColumns[notes]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="notes" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].ExternalColumns[status]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="status" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_ImportBookings\LKP_GetParticipantID"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP_GetParticipantID"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+    id AS participant_id,
+    email
+FROM users
+WHERE role = 'Participant';</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT 
+    id AS participant_id,
+    email
+FROM users
+WHERE role = 'Participant';) [refTable]
+where [refTable].[email] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="participant_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="email" dataType="DT_WSTR" length="150" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[participant_email_wstr]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_ImportBookings\LKP_GetParticipantID.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[JIM.ndis_portal_db.Sa]"
+                  connectionManagerRefId="Package.ConnectionManagers[JIM.ndis_portal_db.Sa]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_ImportBookings\LKP_GetParticipantID.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\LKP_GetParticipantID.Inputs[Lookup Input].Columns[participant_email_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="participant_email_wstr"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[participant_email_wstr]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">email</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_ImportBookings\LKP_GetParticipantID.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup Match Output].Columns[participant_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup Match Output].Columns[participant_id]"
+                      name="participant_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">participant_id</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_ImportBookings\LKP_GetParticipantID.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_ImportBookings\LKP_GetParticipantID.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_ImportBookings\LKP_GetServiceID"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP_GetServiceID"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+    id AS service_id,
+    name
+FROM services
+WHERE is_active = 1;</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT 
+    id AS service_id,
+    name
+FROM services
+WHERE is_active = 1;) [refTable]
+where [refTable].[name] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="service_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="name" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[service_name_wstr]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_ImportBookings\LKP_GetServiceID.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[JIM.ndis_portal_db.Sa 1]"
+                  connectionManagerRefId="Package.ConnectionManagers[JIM.ndis_portal_db.Sa 1]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_ImportBookings\LKP_GetServiceID.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\LKP_GetServiceID.Inputs[Lookup Input].Columns[service_name_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="service_name_wstr"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[service_name_wstr]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">name</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_ImportBookings\LKP_GetServiceID.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup Match Output].Columns[service_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup Match Output].Columns[service_id]"
+                      name="service_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">service_id</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_ImportBookings\LKP_GetServiceID.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_ImportBookings\LKP_GetServiceID.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLEDB_DST_Bookings"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[bookings]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[JIM.ndis_portal_db.Sa 1]"
+                  connectionManagerRefId="Package.ConnectionManagers[JIM.ndis_portal_db.Sa 1]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].Columns[service_id]"
+                      cachedDataType="i4"
+                      cachedName="service_id"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[service_id]"
+                      lineageId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup Match Output].Columns[service_id]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].Columns[preferred_date]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="preferred_date"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[booking_date]"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[preferred_date]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].Columns[status]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="status"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[status]"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[status]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].Columns[created_at]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="created_at"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[created_date]"
+                      lineageId="Package\DFT_ImportBookings\DER_AddCreatedAt.Outputs[Derived Column Output].Columns[created_at]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].Columns[notes_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="notes_wstr"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[notes]"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[notes_wstr]" />
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].Columns[participant_id]"
+                      cachedDataType="i4"
+                      cachedName="participant_id"
+                      externalMetadataColumnId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[user_id]"
+                      lineageId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup Match Output].Columns[participant_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      dataType="i4"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[user_id]"
+                      dataType="i4"
+                      name="user_id" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[service_id]"
+                      dataType="i4"
+                      name="service_id" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[booking_date]"
+                      dataType="dbTimeStamp"
+                      name="booking_date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[notes]"
+                      dataType="wstr"
+                      length="500"
+                      name="notes" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[status]"
+                      dataType="ui1"
+                      name="status" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[created_date]"
+                      dataType="dbTimeStamp"
+                      name="created_date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input].ExternalColumns[modified_date]"
+                      dataType="dbTimeStamp"
+                      name="modified_date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_ImportBookings\UNION_ErrorRows"
+              componentClassID="Microsoft.UnionAll"
+              contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
+              name="UNION_ErrorRows"
+              version="1">
+              <inputs>
+                <input
+                  refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1]"
+                  name="Union All Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1].Columns[participant_email]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="participant_email"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[participant_email]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[participant_email]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1].Columns[service_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="service_name"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[service_name]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[service_name]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1].Columns[preferred_date]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="preferred_date"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[preferred_date]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[preferred_date]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1].Columns[notes]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="notes"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[notes]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[notes]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1].Columns[status]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="status"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[status]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[status]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1].Columns[participant_email_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="participant_email_wstr"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[participant_email_wstr]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[participant_email_wstr]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1].Columns[service_name_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="service_name_wstr"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[service_name_wstr]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[service_name_wstr]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1].Columns[notes_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="notes_wstr"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[notes_wstr]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[notes_wstr]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1].Columns[status_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="status_wstr"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[status_wstr]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[status_wstr]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1].Columns[preferred_date_dt]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="preferred_date_dt"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[preferred_date_dt]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[preferred_date_dt]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1].Columns[error_reason]"
+                      cachedDataType="wstr"
+                      cachedLength="27"
+                      cachedName="error_reason"
+                      lineageId="Package\DFT_ImportBookings\DER_ParticipantError.Outputs[Derived Column Output].Columns[error_reason]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[error_reason]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2]"
+                  hasSideEffects="true"
+                  name="Union All Input 2">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2].Columns[participant_email]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="participant_email"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[participant_email]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[participant_email]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2].Columns[service_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="service_name"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[service_name]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[service_name]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2].Columns[preferred_date]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="preferred_date"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[preferred_date]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[preferred_date]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2].Columns[notes]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="notes"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[notes]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[notes]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2].Columns[status]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="status"
+                      lineageId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output].Columns[status]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[status]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2].Columns[participant_email_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="participant_email_wstr"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[participant_email_wstr]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[participant_email_wstr]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2].Columns[service_name_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="service_name_wstr"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[service_name_wstr]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[service_name_wstr]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2].Columns[notes_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="notes_wstr"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[notes_wstr]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[notes_wstr]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2].Columns[status_wstr]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="status_wstr"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[status_wstr]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[status_wstr]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2].Columns[preferred_date_dt]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="preferred_date_dt"
+                      lineageId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output].Columns[preferred_date_dt]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[preferred_date_dt]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2].Columns[error_reason]"
+                      cachedDataType="wstr"
+                      cachedLength="22"
+                      cachedName="error_reason"
+                      lineageId="Package\DFT_ImportBookings\DER_ServiceError.Outputs[Derived Column Output].Columns[error_reason]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[error_reason]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 3]"
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Union All Input 3">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1]"
+                  name="Union All Output 1">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[participant_email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[participant_email]"
+                      name="participant_email" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[service_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[service_name]"
+                      name="service_name" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[preferred_date]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[preferred_date]"
+                      name="preferred_date" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[notes]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[notes]"
+                      name="notes" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[status]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[status]"
+                      name="status" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[participant_email_wstr]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[participant_email_wstr]"
+                      name="participant_email_wstr" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[service_name_wstr]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[service_name_wstr]"
+                      name="service_name_wstr" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[notes_wstr]"
+                      dataType="wstr"
+                      length="500"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[notes_wstr]"
+                      name="notes_wstr" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[status_wstr]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[status_wstr]"
+                      name="status_wstr" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[preferred_date_dt]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[preferred_date_dt]"
+                      name="preferred_date_dt" />
+                    <outputColumn
+                      refId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[error_reason]"
+                      dataType="wstr"
+                      length="27"
+                      lineageId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1].Columns[error_reason]"
+                      name="error_reason" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT_ImportBookings.Paths[Data Conversion Output]"
+              endId="Package\DFT_ImportBookings\LKP_GetParticipantID.Inputs[Lookup Input]"
+              name="Data Conversion Output"
+              startId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\DFT_ImportBookings.Paths[Derived Column Output]"
+              endId="Package\DFT_ImportBookings\DER_ConvertStatus.Inputs[Derived Column Input]"
+              name="Derived Column Output"
+              startId="Package\DFT_ImportBookings\DER_AddCreatedAt.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT_ImportBookings.Paths[Derived Column Output1]"
+              endId="Package\DFT_ImportBookings\OLEDB_DST_Bookings.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\DFT_ImportBookings\DER_ConvertStatus.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT_ImportBookings.Paths[Derived Column Output2]"
+              endId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 1]"
+              name="Derived Column Output"
+              startId="Package\DFT_ImportBookings\DER_ParticipantError.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT_ImportBookings.Paths[Derived Column Output3]"
+              endId="Package\DFT_ImportBookings\UNION_ErrorRows.Inputs[Union All Input 2]"
+              name="Derived Column Output"
+              startId="Package\DFT_ImportBookings\DER_ServiceError.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT_ImportBookings.Paths[Flat File Source Output]"
+              endId="Package\DFT_ImportBookings\DC_ConvertBookingColumns.Inputs[Data Conversion Input]"
+              name="Flat File Source Output"
+              startId="Package\DFT_ImportBookings\FFS_bookings_import.Outputs[Flat File Source Output]" />
+            <path
+              refId="Package\DFT_ImportBookings.Paths[Lookup Match Output]"
+              endId="Package\DFT_ImportBookings\LKP_GetServiceID.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_ImportBookings.Paths[Lookup Match Output1]"
+              endId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_ImportBookings.Paths[Lookup No Match Output]"
+              endId="Package\DFT_ImportBookings\DER_ParticipantError.Inputs[Derived Column Input]"
+              name="Lookup No Match Output"
+              startId="Package\DFT_ImportBookings\LKP_GetParticipantID.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\DFT_ImportBookings.Paths[Lookup No Match Output1]"
+              endId="Package\DFT_ImportBookings\DER_ServiceError.Inputs[Derived Column Input]"
+              name="Lookup No Match Output"
+              startId="Package\DFT_ImportBookings\LKP_GetServiceID.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\DFT_ImportBookings.Paths[Union All Output 1]"
+              endId="Package\DFT_ImportBookings\FFD_bookings_import_errors.Inputs[Flat File Destination Input]"
+              name="Union All Output 1"
+              startId="Package\DFT_ImportBookings\UNION_ErrorRows.Outputs[Union All Output 1]" />
+            <path
+              refId="Package\DFT_ImportBookings.Paths[ValidRows]"
+              endId="Package\DFT_ImportBookings\DER_AddCreatedAt.Inputs[Derived Column Input]"
+              name="ValidRows"
+              startId="Package\DFT_ImportBookings\CS_CheckResolvedLookups.Outputs[ValidRows]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176.8,41.6"
+          Id="Package\DFT_ImportBookings"
+          TopLeft="210.833321813908,77.9999994575978" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT_ImportBookings">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="180,41.6"
+          Id="Package\DFT_ImportBookings\FFS_bookings_import"
+          TopLeft="582.499968173606,21.6666665159994" />
+        <NodeLayout
+          Size="214.4,41.6"
+          Id="Package\DFT_ImportBookings\DC_ConvertBookingColumns"
+          TopLeft="563.33330255416,100.533332634237" />
+        <EdgeLayout
+          Id="Package\DFT_ImportBookings.Paths[Flat File Source Output]"
+          TopLeft="671.516635363883,63.2666665159994">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.2666661182378"
+              Start="0,0"
+              End="0,29.7666661182378">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.7666661182378" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="180,41.6"
+          Id="Package\DFT_ImportBookings\LKP_GetParticipantID"
+          TopLeft="579.166635022397,171.599998806715" />
+        <EdgeLayout
+          Id="Package\DFT_ImportBookings.Paths[Data Conversion Output]"
+          TopLeft="669.849968788279,142.133332634237">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.4666661724779"
+              Start="0,0"
+              End="0,21.9666661724779">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.9666661724779" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="165.6,41.6"
+          Id="Package\DFT_ImportBookings\LKP_GetServiceID"
+          TopLeft="583.333301461408,244.399998300473" />
+        <EdgeLayout
+          Id="Package\DFT_ImportBookings.Paths[Lookup Match Output]"
+          TopLeft="667.649968241903,213.199998806715">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.1999994937579"
+              Start="0,0"
+              End="0,23.6999994937579">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.6999994937579" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,6.04531224687895,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="210.4,41.6"
+          Id="Package\DFT_ImportBookings\CS_CheckResolvedLookups"
+          TopLeft="565.833302417566,319.799997776151" />
+        <EdgeLayout
+          Id="Package\DFT_ImportBookings.Paths[Lookup Match Output1]"
+          TopLeft="668.583301939487,285.999998300473">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.7999994756778"
+              Start="0,0"
+              End="0,26.2999994756778">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.2999994756778" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,7.3453122378389,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\DFT_ImportBookings\DER_AddCreatedAt"
+          TopLeft="594.999967490636,402.133330536948" />
+        <EdgeLayout
+          Id="Package\DFT_ImportBookings.Paths[ValidRows]"
+          TopLeft="671.033302417566,361.399997776151">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.56666507307057,40.7333327607977"
+              Start="0,0"
+              End="9.56666507307057,33.2333327607977">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.3666663803988" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.3666663803988"
+                    Point2="0,20.3666663803988"
+                    Point3="4,20.3666663803988" />
+                  <mssgle:LineSegment
+                    End="5.56666507307057,20.3666663803988" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.56666507307057,20.3666663803988"
+                    Point2="9.56666507307057,20.3666663803988"
+                    Point3="9.56666507307057,24.3666663803988" />
+                  <mssgle:LineSegment
+                    End="9.56666507307057,33.2333327607977" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-18.5674291822147,25.3666663803988,46.7015234375,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="172,41.6"
+          Id="Package\DFT_ImportBookings\DER_ConvertStatus"
+          TopLeft="599.999967217448,486.533330211507" />
+        <EdgeLayout
+          Id="Package\DFT_ImportBookings.Paths[Derived Column Output]"
+          TopLeft="683.299967354043,443.733330536948">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.7999996745586"
+              Start="0,0"
+              End="0,35.2999996745586">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.2999996745586" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="188.8,41.6"
+          Id="Package\DFT_ImportBookings\OLEDB_DST_Bookings"
+          TopLeft="596.66663406624,565.266663587027" />
+        <EdgeLayout
+          Id="Package\DFT_ImportBookings.Paths[Derived Column Output1]"
+          TopLeft="688.533300641845,528.133330211507">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.1333333755199"
+              Start="0,0"
+              End="0,29.6333333755199">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.6333333755199" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="178.4,41.6"
+          Id="Package\DFT_ImportBookings\DER_ParticipantError"
+          TopLeft="277.499984838069,125.400000524322" />
+        <NodeLayout
+          Size="164,41.6"
+          Id="Package\DFT_ImportBookings\DER_ServiceError"
+          TopLeft="299.999983608724,224.933333755202" />
+        <EdgeLayout
+          Id="Package\DFT_ImportBookings.Paths[Lookup No Match Output]"
+          TopLeft="579.166635022397,192.399998806715">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-123.266650184327,-46.1999982823927"
+              Start="0,0"
+              End="-115.766650184327,-46.1999982823927">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-57.6333250921637,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-57.6333250921637,0"
+                    Point2="-61.6333250921637,0"
+                    Point3="-61.6333250921637,-4" />
+                  <mssgle:LineSegment
+                    End="-61.6333250921637,-42.1999982823927" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-61.6333250921637,-42.1999982823927"
+                    Point2="-61.6333250921637,-46.1999982823927"
+                    Point3="-65.6333250921637,-46.1999982823927" />
+                  <mssgle:LineSegment
+                    End="-115.766650184327,-46.1999982823927" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-117.439711810914,1,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_ImportBookings.Paths[Lookup No Match Output1]"
+          TopLeft="583.333301461408,265.199998300473">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-119.333317852683,-19.4666645452713"
+              Start="0,0"
+              End="-111.833317852683,-19.4666645452713">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-55.6666589263417,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-55.6666589263417,0"
+                    Point2="-59.6666589263417,0"
+                    Point3="-59.6666589263417,-4" />
+                  <mssgle:LineSegment
+                    End="-59.6666589263417,-15.4666645452713" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-59.6666589263417,-15.4666645452713"
+                    Point2="-59.6666589263417,-19.4666645452713"
+                    Point3="-63.6666589263417,-19.4666645452713" />
+                  <mssgle:LineSegment
+                    End="-111.833317852683,-19.4666645452713" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-115.473045645092,1,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="166.4,41.6"
+          Id="Package\DFT_ImportBookings\UNION_ErrorRows"
+          TopLeft="15.8333324682382,189.799998680154" />
+        <EdgeLayout
+          Id="Package\DFT_ImportBookings.Paths[Derived Column Output2]"
+          TopLeft="366.699984838069,167.000000524322">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-267.666652369831,22.7999981558322"
+              Start="0,0"
+              End="-267.666652369831,15.2999981558322">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,7.39999907791608" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,7.39999907791608"
+                    Point2="0,11.3999990779161"
+                    Point3="-4,11.3999990779161" />
+                  <mssgle:LineSegment
+                    End="-263.666652369831,11.3999990779161" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-263.666652369831,11.3999990779161"
+                    Point2="-267.666652369831,11.3999990779161"
+                    Point3="-267.666652369831,15.3999990779161" />
+                  <mssgle:LineSegment
+                    End="-267.666652369831,15.2999981558322" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_ImportBookings.Paths[Derived Column Output3]"
+          TopLeft="299.999983608724,245.733333755202">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-117.766651140485,-35.1333350750472"
+              Start="0,0"
+              End="-110.266651140485,-35.1333350750472">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-54.8833255702427,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-54.8833255702427,0"
+                    Point2="-58.8833255702427,0"
+                    Point3="-58.8833255702427,-4" />
+                  <mssgle:LineSegment
+                    End="-58.8833255702427,-31.1333350750472" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-58.8833255702427,-31.1333350750472"
+                    Point2="-58.8833255702427,-35.1333350750472"
+                    Point3="-62.8833255702427,-35.1333350750472" />
+                  <mssgle:LineSegment
+                    End="-110.266651140485,-35.1333350750472" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="213.6,41.6"
+          Id="Package\DFT_ImportBookings\FFD_bookings_import_errors"
+          TopLeft="1.4210854715202E-14,310.266664509111" />
+        <EdgeLayout
+          Id="Package\DFT_ImportBookings.Paths[Union All Output 1]"
+          TopLeft="102.916666234119,231.399998680154">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,78.8666658289565"
+              Start="0,0"
+              End="0,71.3666658289565">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,71.3666658289565" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_ImportBookings\LKP_GetParticipantID">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_ImportBookings\LKP_GetServiceID">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_ImportBookings\OLEDB_DST_Bookings">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
