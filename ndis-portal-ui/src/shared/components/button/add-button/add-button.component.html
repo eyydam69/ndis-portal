@@ -1,0 +1,8 @@
+<!-- 1. Changed variant to 'none' as 'icon' does not exist in button.ui.ts -->
+<!-- 2. Changed 'icon' attribute to 'left-icon' to match ng-content in button.ui.html -->
+<app-button-ui variant="solid" label="New Service" (onClick)="onClick.emit($event)">
+
+  <app-icon-plus left-icon class="w-5 h-5 flex items-center justify-center">
+  </app-icon-plus>
+
+</app-button-ui>

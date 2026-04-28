@@ -6,7 +6,8 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { TableComponent, TableColumn } from '../../ui/table/table.ui';
+import { TableComponent } from '../../ui/table/table.ui';
+import { TableColumn } from '../../models/table.model';
 
 @Component({
   selector: 'app-booking-table',

@@ -11,6 +11,8 @@ import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.comp
 import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
 import { AuthGuard } from './/core/guards/auth.guard';
 import { DashboardComponent } from './features/coordinator/dashboard/dashboard.page';
+import { ManageServicesComponent } from './features/coordinator/manage-services/manage-services.page';
+
 export const routes: Routes = [
   // AUTH BRANCH: Clean Layout
   {
@@ -45,10 +47,10 @@ export const routes: Routes = [
         component: DashboardComponent,
       },
 
-      // {
-      //   path: 'dashboard/services',
-      //   component: ManageServicesComponent,
-      // },
+      {
+        path: 'dashboard/services',
+        component: ManageServicesComponent,
+      },
 
       {
         path: 'services',
