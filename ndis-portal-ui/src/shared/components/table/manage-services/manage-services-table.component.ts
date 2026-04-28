@@ -22,16 +22,24 @@ export class ManageServicesTableComponent {
   // These must match the event names used in the parent HTML
   @Output() onEdit = new EventEmitter<any>();
   @Output() onDeactivate = new EventEmitter<any>();
+
   serviceColumns: TableColumn[] = [
     { key: 'name', label: 'Name', type: 'name' },
     { key: 'category', label: 'Category', type: 'category' },
-    // 'type: status' tells the UI to run the getStatusClasses function[cite: 11]
     { key: 'status', label: 'Status', type: 'status' },
     {
       key: 'actions',
       label: 'Actions',
       type: 'action',
-      actionLabel: 'Deactivate', // This overrides the default[cite: 22]
+      // FIX: Added commas and converted to objects so the template can read .label and .actionKey
+      actionLabel: [
+        { label: 'Activate', actionKey: 'activate' },
+        {
+          label: 'Deactivate',
+          actionKey: 'deactivate',
+          class: 'text-rose-500 hover:bg-rose-50',
+        },
+      ],
     },
   ];
 }
