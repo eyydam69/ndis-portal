@@ -30,10 +30,22 @@ namespace Register.API.Services
                 return new { status = 400, message = "All fields are required" };
             }
 
-            var emailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@gmail\.com$", RegexOptions.IgnoreCase);
-            if (!emailRegex.IsMatch(dto.Email.Trim()))
+            var trimmedEmail = dto.Email.Trim();
+
+            // Check email length (max 50 characters)
+            if (trimmedEmail.Length > 50)
             {
-                return new { status = 400, message = "Email must be in @gmail.com format" };
+                return new { status = 400, message = $"Email must be 50 characters or less. Current length: {trimmedEmail.Length}" };
+            }
+
+            // Email regex: any username + @ + lowercase domain + .com
+            var emailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.com$");
+            Console.WriteLine($"Testing email: '{trimmedEmail}' (length: {trimmedEmail.Length}) against regex: ^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.com$");
+            Console.WriteLine($"Email matches regex: {emailRegex.IsMatch(trimmedEmail)}");
+
+            if (!emailRegex.IsMatch(trimmedEmail))
+            {
+                return new { status = 400, message = $"Email validation failed. Email: '{trimmedEmail}'. Must be in format: user@domain.com with lowercase domain after @ and max 50 characters" };
             }
 
             var allowedRoles = new[] { "Participant", "Coordinator" };
