@@ -2,14 +2,10 @@
 {
     public class RecommendRequest
     {
-        public UserAnswers Answers { get; set; }
-    }
-
-    public class UserAnswers
-    {
-        public List<string> DailyActivities { get; set; }
-        public string Mobility { get; set; }
-        public bool NeedsSocialSupport { get; set; }
-        public string Notes { get; set; }
+        /// <summary>
+        /// User's free-text description of their situation, physical disability, and needs.
+        /// Example: "I need help with personal care, preparing meals, and going to community activities."
+        /// </summary>
+        public string Message { get; set; }
     }
 }
