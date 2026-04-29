@@ -6,7 +6,13 @@ import { environment } from '../../../environments/environment';
 import { ChatMessage } from '../models/chat-message.model';
 
 interface ChatApiResponse {
-  reply: string;
+  reply?: string;
+  Data?: {
+    reply?: string;
+  };
+  Message?: {
+    reply?: string;
+  };
 }
 
 interface ChatRequest {
@@ -36,7 +42,11 @@ export class ChatService {
    * Send user message to API
    */
   sendMessage(text: string) {
-    if (!text.trim()) return;
+    console.log('[ChatService] sendMessage called:', text);
+    if (!text.trim()) {
+      console.log('[ChatService] Empty message, returning');
+      return;
+    }
 
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
@@ -46,10 +56,12 @@ export class ChatService {
     };
 
     const updatedMessages = [...this.messagesSubject.value, userMessage];
+    console.log('[ChatService] Adding user message, total messages:', updatedMessages.length);
     this.messagesSubject.next(updatedMessages);
     this.saveMessages(updatedMessages);
 
     // Call backend API
+    console.log('[ChatService] Calling API...');
     this.callChatApi(text, updatedMessages);
   }
 
@@ -58,6 +70,7 @@ export class ChatService {
    */
   private callChatApi(message: string, currentMessages: ChatMessage[]) {
     this.loadingSubject.next(true);
+    console.log('[ChatService] callChatApi - API URL:', this.apiUrl);
 
     // Prepare conversation history (last 10 messages for context)
     const conversationHistory = currentMessages
@@ -72,10 +85,12 @@ export class ChatService {
       conversationHistory
     };
 
-    this.http.post<ChatApiResponse>(this.apiUrl, request)
+    this.http.post<any>(this.apiUrl, request)
       .pipe(
         catchError(error => {
-          console.error('Chat API error:', error);
+          console.error('[ChatService] API error:', error);
+          console.error('[ChatService] Error status:', error.status);
+          console.error('[ChatService] Error message:', error.message);
           const errorMessage: ChatMessage = {
             id: Date.now().toString(),
             role: 'assistant',
@@ -92,17 +107,29 @@ export class ChatService {
         })
       )
       .subscribe(response => {
-        if (response.reply) {
+        console.log('[ChatService] API response received:', response);
+        console.log('[ChatService] Response structure:', JSON.stringify(response, null, 2));
+        
+        // Handle wrapped response format
+        const reply = response.Data?.reply || response.reply || response.Message?.reply;
+        
+        console.log('[ChatService] Extracted reply:', reply);
+        
+        if (reply) {
+          console.log('[ChatService] Got reply, adding bot message');
           const botMessage: ChatMessage = {
             id: Date.now().toString(),
             role: 'assistant',
-            content: response.reply,
+            content: reply,
             timestamp: new Date(),
           };
 
           const updatedMessages = [...this.messagesSubject.value, botMessage];
+          console.log('[ChatService] Total messages after adding bot:', updatedMessages.length);
           this.messagesSubject.next(updatedMessages);
           this.saveMessages(updatedMessages);
+        } else {
+          console.log('[ChatService] Empty reply from API - response keys:', Object.keys(response));
         }
       });
   }
