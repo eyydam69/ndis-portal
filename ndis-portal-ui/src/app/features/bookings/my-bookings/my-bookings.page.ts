@@ -458,18 +458,20 @@ export class MyBookingsComponent implements OnInit {
 
 
 
-  private getServiceCategory(booking: Booking): string {
-
-    const category = booking.serviceCategory?.trim();
-
-    if (category) {
-
-      return category === 'support' ? 'Support Coordination' : category;
-
+  private getServiceCategory(
+    booking: Booking & {
+      ServiceCategory?: string;
+      categoryName?: string;
+      CategoryName?: string;
     }
+  ): string {
+    const category =
+      booking.serviceCategory ??
+      booking.ServiceCategory ??
+      booking.categoryName ??
+      booking.CategoryName;
 
-    return this.deriveCategory(booking.serviceName);
-
+    return category?.trim() || 'Uncategorized';
   }
 
 

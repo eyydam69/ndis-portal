@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit {
       next: (res: any) => {
         console.log('Bookings response:', res);
         const data = res.Data || res;
-        this.bookings = Array.isArray(data) ? data : [];
+        this.bookings = Array.isArray(data) ? data.slice(0, 5) : [];
         
         // Debug: Log booking details
         console.log('Bookings loaded:', this.bookings.length);
@@ -118,24 +118,6 @@ export class DashboardComponent implements OnInit {
       error: (err) => {
         console.error('Error approving booking:', err);
         alert('Failed to approve booking. Please try again.');
-      }
-    });
-  }
-
-  cancelBooking(booking: any): void {
-    // Close menu
-    this.activeMenuId = null;
-    
-    this.api.updateBookingStatus(booking.id, 'Cancelled').subscribe({
-      next: () => {
-        // Update UI immediately without reload
-        booking.status = 'Cancelled';
-        // Refresh stats to reflect the change
-        this.loadStats();
-      },
-      error: (err) => {
-        console.error('Error cancelling booking:', err);
-        alert('Failed to cancel booking. Please try again.');
       }
     });
   }

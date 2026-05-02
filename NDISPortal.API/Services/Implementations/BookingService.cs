@@ -49,7 +49,6 @@ namespace NdisPortal.BookingsApi.Services.Implementations
             return status.Trim().ToLower() switch
             {
                 "approved" => 1,
-                "cancelled" => 2,
                 _ => null
             };
         }
@@ -120,6 +119,7 @@ namespace NdisPortal.BookingsApi.Services.Implementations
         {
             var booking = await _context.Bookings
                 .Include(b => b.Service)
+                    .ThenInclude(s => s.ServiceCategory)
                 .Include(b => b.User)
                 .FirstOrDefaultAsync(b => b.Id == id);
 
@@ -134,6 +134,9 @@ namespace NdisPortal.BookingsApi.Services.Implementations
                 UserId = booking.UserId,
                 ServiceId = booking.ServiceId,
                 ServiceName = booking.Service != null ? booking.Service.Name : string.Empty,
+                ServiceCategory = booking.Service != null && booking.Service.ServiceCategory != null
+                    ? booking.Service.ServiceCategory.Name
+                    : string.Empty,
                 ParticipantName = booking.User != null
                     ? booking.User.FirstName + " " + booking.User.LastName
                     : string.Empty,
@@ -158,6 +161,7 @@ namespace NdisPortal.BookingsApi.Services.Implementations
             }
 
             var service = await _context.Services
+                .Include(s => s.ServiceCategory)
                 .FirstOrDefaultAsync(s => s.Id == createDto.ServiceId && s.is_active);
 
             if (service == null)
@@ -207,6 +211,7 @@ namespace NdisPortal.BookingsApi.Services.Implementations
         {
             var booking = await _context.Bookings
                 .Include(b => b.Service)
+                    .ThenInclude(s => s.ServiceCategory)
                 .Include(b => b.User)
                 .FirstOrDefaultAsync(b => b.Id == id);
 
@@ -219,7 +224,7 @@ namespace NdisPortal.BookingsApi.Services.Implementations
 
             if (newStatus == null)
             {
-                throw new ArgumentException("Invalid status value. Allowed values are: Approved or Cancelled.");
+                throw new ArgumentException("Invalid status value. Allowed value is: Approved.");
             }
 
             booking.Status = (byte)newStatus.Value;
@@ -233,6 +238,9 @@ namespace NdisPortal.BookingsApi.Services.Implementations
                 UserId = booking.UserId,
                 ServiceId = booking.ServiceId,
                 ServiceName = booking.Service != null ? booking.Service.Name : string.Empty,
+                ServiceCategory = booking.Service != null && booking.Service.ServiceCategory != null
+                    ? booking.Service.ServiceCategory.Name
+                    : string.Empty,
                 ParticipantName = booking.User != null
                     ? booking.User.FirstName + " " + booking.User.LastName
                     : string.Empty,
