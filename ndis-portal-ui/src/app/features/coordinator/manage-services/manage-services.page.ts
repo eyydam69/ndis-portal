@@ -1,6 +1,6 @@
 // FILE: manage-services.page.ts
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Your shared components
@@ -12,7 +12,7 @@ import { ServiceFormModalComponent } from '../../../../shared/components/modals/
 
 // API Service
 import { ApiService } from '../../../core/services/api-service';
-
+import { ToastService } from '../../../core/services/toast.service'; // Import ToastService
 @Component({
   selector: 'app-manage-services',
   standalone: true,
@@ -27,12 +27,14 @@ import { ApiService } from '../../../core/services/api-service';
 export class ManageServicesComponent implements OnInit {
   // Services data from API
   services: any[] = [];
-  
+
   // Loading state
   isLoading = true;
 
   // Controls modal visibility
   isModalOpen = false;
+
+  private toast = inject(ToastService);
 
   constructor(private api: ApiService) {}
 
@@ -52,7 +54,8 @@ export class ManageServicesComponent implements OnInit {
             category: service.categoryName || service.category,
             categoryId: service.categoryId,
             description: service.description,
-            status: service.isActive || service.IsActive ? 'Active' : 'Inactive',
+            status:
+              service.isActive || service.IsActive ? 'Active' : 'Inactive',
           }));
         }
         this.isLoading = false;
@@ -60,32 +63,13 @@ export class ManageServicesComponent implements OnInit {
       error: (err) => {
         console.error('Error loading services:', err);
         this.isLoading = false;
-        
-        // Commented out mock data - kept for reference
-        /*
-        this.services = [
-          {
-            id: 1,
-            name: 'Web Development',
-            category: 'IT Services',
-            status: 'Active',
-          },
-          {
-            id: 2,
-            name: 'Logo Design',
-            category: 'Graphics',
-            status: 'Inactive',
-          },
-        ];
-        */
-      }
+      },
     });
   }
 
   // Open modal
   openModal() {
     this.isModalOpen = true;
-    console.log('Modal Opened');
   }
 
   // Save new service
@@ -94,24 +78,23 @@ export class ManageServicesComponent implements OnInit {
     const serviceData = {
       Name: formData.name,
       CategoryId: parseInt(formData.category, 10),
-      Description: formData.description || ''
+      Description: formData.description || '',
     };
-    
+
     // Call API to create new service
     this.api.createService(serviceData).subscribe({
       next: (res: any) => {
-        console.log('Service created successfully:', res);
-        
-        // Reload services to get updated list from API
+        // 2. Success Feedback
+        this.toast.show('Service created successfully!', 'success');
+
         this.loadServices();
-        
-        // Close modal
         this.isModalOpen = false;
       },
       error: (err) => {
         console.error('Error creating service:', err);
-        // Optionally show error message to user
-      }
+        // 3. Error Feedback
+        this.toast.show('Could not save service. Please try again.', 'error');
+      },
     });
   }
 
@@ -125,7 +108,7 @@ export class ManageServicesComponent implements OnInit {
     const newStatus = service.status === 'Active' ? 'Inactive' : 'Active';
     this.api.updateServiceStatus(serviceId, newStatus, service).subscribe({
       next: () => this.loadServices(),
-      error: (err) => console.error('Error toggling service status:', err)
+      error: (err) => console.error('Error toggling service status:', err),
     });
   }
 }
